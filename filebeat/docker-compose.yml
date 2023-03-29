@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+    filebeat:
+        container_name: filebeat
+        volumes:
+            - './filebeat.yml:/usr/share/filebeat/filebeat.yml'
+            - './logs2:/var/log/filebeat'
+        image: 'docker.elastic.co/beats/filebeat:8.5.0'
+        tty: true

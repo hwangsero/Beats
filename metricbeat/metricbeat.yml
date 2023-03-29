@@ -1,0 +1,38 @@
+metricbeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    # Reload module configs as they change:
+    reload.enabled: false
+
+metricbeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: true
+
+metricbeat.modules:
+- module: docker
+  metricsets:
+    - "container"
+    - "cpu"
+    - "diskio"
+    - "healthcheck"
+    - "info"
+    #- "image"
+    - "memory"
+    - "network"
+  hosts: ["unix:///var/run/docker.sock"]
+  period: 10s
+  enabled: true
+
+processors:
+  - add_cloud_metadata: ~
+
+setup.dashboards.enabled: true
+setup.kibana.host: "192.168.127.38:5601"
+
+output.elasticsearch:
+  hosts: '192.168.127.38:9200'
+setup.kibana:
+  hosts: ["192.168.127.38:5601"]
+#  username: '${ELASTICSEARCH_USERNAME:}'
+#  password: '${ELASTICSEARCH_PASSWORD:}'

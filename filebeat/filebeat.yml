@@ -1,0 +1,58 @@
+filebeat.inputs:
+# log plugin이 deprecated 되어 filestream을 사용하는 것이 권장되나
+# filestream에서 tail log만 읽는 설정이 잘 안되어서 임시로 log plugin을 사용
+#- type: log
+#  paths:
+#    - "/var/log/filebeat/error.log"
+#  tags: ["nginx_error"]
+#  fields:
+#    index_name: "proxy1-nginx-error4"
+#  tail_files: true
+
+- type: log
+  paths:
+    - "/var/log/filebeat/*.log"
+  tags: ["pattern_log"]
+#- type: log
+#  paths:
+#    - "/var/log/filebeat/master1-slow.log"
+#  tags: ["mariadb_slow_log"]
+
+#- type: filestream
+#  paths:
+#    - "/var/log/logs/settlement_laravel.log"
+#  tags: ["laravel"]
+#  fields:
+#    index_name: "index-settlement-laravel"
+#  parsers:
+#  - multiline:
+#      type: pattern
+#      pattern: '^\['
+#      negate: true
+#      match: after
+
+#- type: filestream
+#  paths:
+#    - "/var/log/logs/maria.log"
+#  fields:
+#    index_name: "maria"
+
+
+#filebeat.inputs:
+#- type: log
+#  enabled: true
+#  paths:
+#  - "/var/log/sssss/access.log"
+
+#parsers:
+#- multiline:
+#    type: pattern
+#    pattern: '================'
+#    negate: true
+#    match: after
+#
+output.logstash:
+  hosts: ["192.168.226.96:5000"]
+setup.kibana:
+  hosts: ["192.168.226.96:5601"]
+

@@ -1,0 +1,6 @@
+version: '3.2'
+
+services:
+  metricbeat:
+    container_name: metricbeat
+    image: 'docker.bitmango.com/metricbeat:7.17.7'
